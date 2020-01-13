@@ -48,12 +48,12 @@ RSpec.describe "As a visitor" do
     end
 
     it "i see a new flight form" do
-      expect(page).to have_content('Flight Number:')
+      expect(page).to have_content('Add New Flight')
 
-      fill_in 'Flight Number', with: "SW5"
-      click 'Submit'
+      fill_in 'Flight', with: "SW5"
+      click_on 'Add Flight'
 
-      expec(current_path).to eq("/passengers/#{@phil.id}")
+      expect(current_path).to eq("/passengers/#{@phil.id}")
 
       expect(page).to have_content('SW5')
     end

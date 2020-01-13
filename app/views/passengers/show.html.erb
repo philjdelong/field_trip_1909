@@ -8,3 +8,7 @@
     </li>
   <% end %>
 </ol>
+  <br>
+
+<h2>Add New Flight</h2>
+  <%= render partial: "partials/passengers_update", locals: { path: "/passengers/#{@passenger.id}/flights" } %>

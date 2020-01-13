@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   get '/flights/:id', to: "flights#show"
 
   get '/passengers/:id', to: "passengers#show"
+  patch '/passengers/:id/flights', to: "passengers#update"
 end
