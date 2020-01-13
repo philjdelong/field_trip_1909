@@ -8,6 +8,11 @@ RSpec.describe "As a visitor" do
       @flight_1 = @southwest.flights.create(number: "SW1", date: "10/10/20", time: "1300", departure_city: "Minneapolis", arrival_city: "Nashville")
       @flight_2 = @southwest.flights.create(number: "SW2", date: "12/08/19", time: "0900", departure_city: "Baltimore", arrival_city: "Oakland")
 
+      @jeff = Passenger.create(
+        name: 'Jeff',
+        age:  31
+      )
+
       @phil = Passenger.create(
         name: 'Phil',
         age:  29
@@ -18,7 +23,13 @@ RSpec.describe "As a visitor" do
         age:  28
       )
 
-      @flight_1.passengers << [@phil, @courtney]
+      @capo = Passenger.create(
+        name: 'Capo',
+        age:  7
+      )
+
+      @flight_1.passengers << [@phil, @courtney, @capo]
+      @flight_2.passengers << @jeff
 
       visit "/flights/#{@flight_1.id}"
     end
@@ -41,5 +52,15 @@ RSpec.describe "As a visitor" do
       expect(page).to have_content('Phil')
       expect(page).to have_content('Courtney')
     end
+
+    it "i can see minors count and adults count" do
+      expect(page).to have_content('Adults: 2')
+      expect(page).to have_content('Minors: 1')
+    end
   end
 end
+
+# As a visitor
+# When I visit a flights show page
+# I see the number of minors on the flight (minors are any passengers that are under 18)
+# And I see the number of adults on the flight (adults are any passengers that are 18 or older)
